@@ -1,0 +1,46 @@
+{
+  "name": "cwrc-worker-validator",
+  "version": "1.0.0",
+  "description": "webworker to handle validation on CWRC-Writer",
+  "keywords": [
+    "xml",
+    "rdf",
+    "editor",
+    "annotation",
+    "rng validation"
+  ],
+  "main": "src/index.js",
+  "scripts": {
+    "cm": "git-cz",
+    "browserify-jsdom": "browserify -r jsdom -s jsdom -o src/lib/jsdom/jsdom-browserified.js"
+  },
+  "author": "Luciano Frizzera <lucaju@gmail.com>",
+  "license": "GPL-2.0",
+  "dependencies": {
+    "lodash": "^4.17.21",
+    "observable-fns": "^0.5.1",
+    "salve-annos": "github:cwrc/salve#develop",
+    "salve-dom": "github:cwrc/salve-dom",
+    "threads": "^1.6.4",
+    "uuid": "^8.3.2"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.14.3",
+    "@babel/eslint-parser": "^7.14.3",
+    "@babel/plugin-transform-runtime": "^7.14.3",
+    "@babel/preset-env": "^7.14.2",
+    "babel-eslint": "^10.1.0",
+    "browserify": "^17.0.0",
+    "codecov": "^3.8.2",
+    "commitizen": "^4.2.4",
+    "eslint": "^7.26.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^3.4.0",
+    "git-cz": "^4.7.6",
+    "husky": "^6.0.0",
+    "jsdom": "^16.5.3",
+    "prettier": "^2.3.0",
+    "semantic-release": "^17.4.3",
+    "threads-plugin": "^1.4.0"
+  }
+}
