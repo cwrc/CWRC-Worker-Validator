@@ -9,13 +9,21 @@
     "annotation",
     "rng validation"
   ],
+  "homepage": "https://github.com/cwrc/CWRC-Worker-Validator#readme",
+  "bugs": {
+    "url": "https://github.com/cwrc/CWRC-Worker-Validator/issues"
+  },
+  "license": "GPL-2.0",
+  "author": "Luciano Frizzera <lucaju@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cwrc/CWRC-Worker-Validator.git"
+  },
   "main": "src/index.js",
   "scripts": {
     "cm": "git-cz",
     "browserify-jsdom": "browserify -r jsdom -s jsdom -o src/lib/jsdom/jsdom-browserified.js"
   },
-  "author": "Luciano Frizzera <lucaju@gmail.com>",
-  "license": "GPL-2.0",
   "dependencies": {
     "lodash": "^4.17.21",
     "observable-fns": "^0.5.1",
