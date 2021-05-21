@@ -7,6 +7,18 @@ let observable;
 
 const SKIP_EVENTS = new Set(['leaveStartTag']);
 
+const ERROR_TYPES = new Map();
+ERROR_TYPES.set('AttributeNameError', 'AttributeNameError');
+ERROR_TYPES.set('AttributeValueError', 'AttributeValueError');
+ERROR_TYPES.set('ElementNameError', 'ElementNameError');
+ERROR_TYPES.set('ChoiceError', 'ChoiceError');
+ERROR_TYPES.set('ValidationError', 'ValidationError');
+ERROR_TYPES.set('attribute not allowed here', 'AttributeNameError');
+ERROR_TYPES.set('invalid attribute value', 'AttributeValueError');
+ERROR_TYPES.set('tag not allowed here', 'ElementNameError');
+ERROR_TYPES.set('one value required from the following', 'ChoiceError'); //this might not work
+ERROR_TYPES.set('text not allowed here', 'ValidationError');
+
 export const validate = (documentString, { userRequest = false, newDocument = false } = {}) => {
   console.time('Validate Document');
 
@@ -53,7 +65,6 @@ const handleValidatorStateUpdate = ({ partDone, state }, observer) => {
   }
 
   //* State [3] INVALID: Process errors and Resolve
-  // console.log(virtualEditor.validator.errors);
   const errors = virtualEditor.validator.errors.map((errorData) => parseErrors(errorData));
 
   console.timeEnd('Validate Document');
@@ -69,7 +80,12 @@ const parseErrors = ({ error, index, node }) => {
     - ChoiceError
     - ValidationError (more severe?)
   */
-  const type = error.constructor.name;
+
+  const type =
+    ERROR_TYPES.get(error.constructor.name) ??
+    ERROR_TYPES.get(error.msg) ??
+    ERROR_TYPES.get('ValidationError');
+
   const msg = error.msg;
 
   const target = {
