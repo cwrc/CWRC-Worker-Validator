@@ -1,39 +1,40 @@
 const path = require('path');
-const webpack = require('webpack');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const WebpackBar = require('webpackbar');
 
 module.exports = {
   mode: 'none',
-  entry: path.resolve(__dirname, 'src', 'index.js'),
+  entry: {
+    index: path.resolve(__dirname, 'src', 'index.ts'),
+  },
   output: {
-    path: path.resolve(__dirname, 'dist'),
-    publicPath: '/',
+    path: path.resolve(__dirname, 'build','dist'),
+    library: 'cwrc-worker-validator',
     libraryTarget: 'umd',
     globalObject: 'this',
   },
   resolve: {
     extensions: ['.tsx', '.ts', '.js'],
+    modules: ["build/dist/lib", "node_modules"],
   },
   plugins: [
-    new webpack.ProgressPlugin(),
     new CleanWebpackPlugin({ cleanStaleWebpackAssets: false }),
     new WebpackBar({ color: '#0099ff' }),
-    new webpack.ProvidePlugin({
-      process: 'process/browser',
-    }),
+    // new webpack.ProvidePlugin({
+    //   process: 'process/browser',
+    // }),
   ],
   module: {
     rules: [
-      // {
-      //   rules: [
-      //     {
-      //       test: /\.tsx?$/,
-      //       exclude: /node_modules/,
-      //       use: 'ts-loader',
-      //     },
-      //   ],
-      // },
+      {
+        rules: [
+          {
+            test: /\.tsx?$/,
+            exclude: /node_modules/,
+            use: 'ts-loader',
+          },
+        ],
+      },
       {
         test: /\.(js|jsx)$/,
         exclude: /(node_modules)/,
