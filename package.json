@@ -24,7 +24,7 @@
     "cm": "git-cz",
     "browserify-jsdom": "browserify -r jsdom -s jsdom -o src/lib/jsdom/jsdom-browserified.js",
     "build": "webpack --config webpack.prod.mjs",
-    "build-dev": "webpack --config webpack.dev.mjs && npm run copy-package",
+    "build-dev": "webpack --config webpack.dev.mjs --watch && npm run copy-package",
     "copy-package": "copyfiles package.json build/dist"
   },
   "dependencies": {
@@ -60,7 +60,7 @@
     "semantic-release": "^17.4.3",
     "terser-webpack-plugin": "^5.1.2",
     "ts-loader": "^9.2.2",
-    "typescript": "^4.2.4",
+    "typescript": "^4.3.2",
     "webpack": "^5.37.1",
     "webpack-bundle-analyzer": "^4.4.2",
     "webpack-cli": "^4.7.0",
