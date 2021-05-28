@@ -5,9 +5,10 @@ const WebpackBar = require('webpackbar');
 module.exports = {
   mode: 'none',
   entry: {
-    index: path.resolve(__dirname, 'src', 'index.ts'),
+    'cwrc.worker': path.resolve(__dirname, 'src', 'index.ts'),
   },
   output: {
+    filename: '[name].js',
     path: path.resolve(__dirname, 'build','dist'),
     library: 'cwrc-worker-validator',
     libraryTarget: 'umd',
