@@ -82,21 +82,10 @@ ERROR_TYPES.set('tag not allowed here', 'ElementNameError');
 ERROR_TYPES.set('one value required from the following', 'ChoiceError'); //this might not work
 ERROR_TYPES.set('text not allowed here', 'ValidationError');
 
-export const validate = (
-  documentString: DocumentString,
-  { userRequest = false, newDocument = false }: ValidateRequestOptions = {}
-) => {
+export const validate = (documentString: string) => {
   console.time('Validate Document');
 
   virtualEditor.setDocument(documentString);
-
-  if (!observable || userRequest || newDocument) return createValidator();
-
-  virtualEditor.restartValidator();
-  return observable;
-};
-
-const createValidator = () => {
   const validator = virtualEditor.setValidator();
 
   observable = new Observable((observer) => {

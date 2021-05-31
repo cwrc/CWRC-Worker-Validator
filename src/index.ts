@@ -4,7 +4,7 @@ import { loadSchema, SchemaRequest } from './conversion';
 //@ts-ignore
 import jsdom from './lib/jsdom/jsdom-browserified.js';
 import { possibleAt, PossibleRequest } from './possible';
-import { validate, validatePossibleAt, ValidateRequestOptions } from './validate';
+import { validate, validatePossibleAt } from './validate';
 import { virtualEditor } from './virtualEditor';
 export { SchemaRequest, SchemaResponse } from './conversion';
 export { PossibleRequest, PossibleResponse, Selection, Tag } from './possible';
@@ -30,8 +30,8 @@ const cwrcWorkerValidator = {
   async loadSchema(schema: SchemaRequest) {
     return await loadSchema(schema);
   },
-  validate(documentString: string, userRequest: ValidateRequestOptions) {
-    return validate(documentString, userRequest);
+  validate(documentString: string) {
+    return validate(documentString);
   },
   async validatePossible(xpath: string, index: number, type: string) {
     return await validatePossibleAt(xpath, index, type);
