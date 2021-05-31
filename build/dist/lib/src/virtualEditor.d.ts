@@ -17,7 +17,6 @@ declare class VirtualEditor {
     setValidator(): Validator;
     hasValidator(): boolean;
     startValidator(): Validator;
-    restartValidator: () => Validator;
     stopValidator(): Validator;
 }
 export declare const virtualEditor: VirtualEditor;

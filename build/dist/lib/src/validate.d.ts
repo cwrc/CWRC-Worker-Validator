@@ -1,11 +1,7 @@
 import Observable from 'observable-fns/observable';
 import { WorkingState } from 'salve-dom/build/dist';
-declare type DocumentString = string;
-export interface ValidateRequestOptions {
-    userRequest?: boolean;
-    newDocument?: boolean;
-}
-interface ValidationNodeTarget {
+import { Tag } from './sharedTypes';
+export interface ValidationNodeTarget {
     index?: number;
     isAttr: boolean;
     name?: string;
@@ -14,7 +10,7 @@ interface ValidationNodeTarget {
     fullName?: string;
     xpath?: string;
 }
-interface ValidationNodeElement {
+export interface ValidationNodeElement {
     name?: string;
     documentation?: string;
     fullName?: string;
@@ -35,21 +31,14 @@ export interface ValidationResponse {
     valid?: boolean;
     errors?: ValidationNode[];
 }
-declare type PossibleNodes = {
+export interface PossibleNodes {
     name: string;
-};
-export interface possibleTags {
-    name: string | RegExp;
-    ns?: string;
-    fullName?: string;
-    documentation?: string;
 }
 export interface ValidatePossibleAtResponse {
     xpath: string;
     index: number;
-    possibleTags?: possibleTags[];
+    possibleTags?: Tag[];
     possibleNodes?: PossibleNodes[];
 }
-export declare const validate: (documentString: DocumentString, { userRequest, newDocument }?: ValidateRequestOptions) => Observable<any>;
+export declare const validate: (documentString: string) => Observable<any>;
 export declare const validatePossibleAt: (xpath: string, index: number, type: string) => Promise<ValidatePossibleAtResponse>;
-export {};

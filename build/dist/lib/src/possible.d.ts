@@ -1,3 +1,4 @@
+import { Tag } from './sharedTypes';
 export interface Selection {
     type?: string;
     startContainerIndex?: number;
@@ -12,10 +13,6 @@ export interface PossibleRequest {
     xpath: string;
     index: number;
     selection?: Selection;
-}
-export interface Tag {
-    name: string;
-    fullName?: string;
 }
 export interface PossibleResponse {
     xpath: string;
