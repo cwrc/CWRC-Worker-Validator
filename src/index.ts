@@ -6,13 +6,16 @@ import jsdom from './lib/jsdom/jsdom-browserified.js';
 import { possibleAt, PossibleRequest } from './possible';
 import { validate, validatePossibleAt } from './validate';
 import { virtualEditor } from './virtualEditor';
+
 export { SchemaRequest, SchemaResponse } from './conversion';
-export { PossibleRequest, PossibleResponse, Selection, Tag } from './possible';
+export { PossibleRequest, PossibleResponse, Selection } from './possible';
+export { Tag } from './sharedTypes';
 export {
-  possibleTags,
+  PossibleNodes,
   ValidatePossibleAtResponse,
-  ValidateRequestOptions,
   ValidationNode,
+  ValidationNodeElement,
+  ValidationNodeTarget,
   ValidationResponse,
 } from './validate';
 

@@ -1,19 +1,14 @@
-import { sortBy, uniqBy } from 'lodash';
+import sortBy from 'lodash/sortBy';
+import uniqBy from 'lodash/unionBy';
 import Observable, { SubscriptionObserver } from 'observable-fns/observable';
 import { EventSet } from 'salve-annos/build/dist';
 import { AttributeValueEvent, EndTagEvent, TextEvent } from 'salve-annos/build/dist/salve/events';
-import { ErrorData, WorkingStateData, WorkingState } from 'salve-dom/build/dist';
+import { ErrorData, WorkingState, WorkingStateData } from 'salve-dom/build/dist';
+import { Tag } from './sharedTypes';
 import { evaluateXPath, getFullNameFromDocumentation, getXPathForElement } from './utils';
 import { virtualEditor } from './virtualEditor';
 
-type DocumentString = string;
-
-export interface ValidateRequestOptions {
-  userRequest?: boolean;
-  newDocument?: boolean;
-}
-
-interface ValidationNodeTarget {
+export interface ValidationNodeTarget {
   index?: number;
   isAttr: boolean;
   name?: string;
@@ -23,7 +18,7 @@ interface ValidationNodeTarget {
   xpath?: string;
 }
 
-interface ValidationNodeElement {
+export interface ValidationNodeElement {
   name?: string;
   documentation?: string;
   fullName?: string;
@@ -47,24 +42,16 @@ export interface ValidationResponse {
   errors?: ValidationNode[];
 }
 
-type PossibleNodes = {
+export interface PossibleNodes {
   name: string;
-};
-
-export interface possibleTags {
-  name: string | RegExp;
-  ns?: string;
-  fullName?: string;
-  documentation?: string;
 }
 
 export interface ValidatePossibleAtResponse {
   xpath: string;
   index: number;
-  possibleTags?: possibleTags[];
+  possibleTags?: Tag[];
   possibleNodes?: PossibleNodes[];
 }
-
 
 let observable: Observable<any>;
 
@@ -228,8 +215,8 @@ export const validatePossibleAt = async (
 
 const parsePossibleAt = (possibleAt: EventSet, isAttr: boolean) => {
   //Pepare to store possible events
-  const possibleNodes: PossibleNodes[] = [] as PossibleNodes[]; //specific for text or end-tag
-  let possibleTags: possibleTags[] = [];
+  const possibleNodes: PossibleNodes[] = []; //specific for text or end-tag
+  let possibleTags: Tag[] = [];
 
   Array.from(possibleAt).forEach((event) => {
     //skip events
@@ -245,7 +232,8 @@ const parsePossibleAt = (possibleAt: EventSet, isAttr: boolean) => {
 
     if (event.isAttributeEvent) {
       const ev: AttributeValueEvent = event as AttributeValueEvent;
-      possibleTags.push({ name: ev.value });
+      const name = ev.value as string;
+      possibleTags.push({ name });
       return;
     }
 

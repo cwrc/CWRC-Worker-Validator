@@ -1,5 +1,7 @@
-import { sortBy, uniqBy } from 'lodash';
+import sortBy from 'lodash/sortBy';
+import uniqBy from 'lodash/unionBy';
 import { EventSet } from 'salve-annos/build/dist';
+import { Tag } from './sharedTypes';
 import { evaluateXPath, getFullNameFromDocumentation } from './utils';
 import { virtualEditor } from './virtualEditor';
 
@@ -22,12 +24,6 @@ export interface PossibleRequest {
   index: number;
   selection?: Selection;
 }
-
-export interface Tag {
-  name: string;
-  fullName?: string;
-}
-
 export interface PossibleResponse {
   xpath: string;
   index: number;

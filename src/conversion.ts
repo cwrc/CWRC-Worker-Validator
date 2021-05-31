@@ -6,13 +6,11 @@ import {
   writeTreeToJSON,
 } from 'salve-annos/build/dist';
 import { virtualEditor } from './virtualEditor';
-
 export interface SchemaRequest {
   id: string;
   url: string;
   localData?: string;
 }
-
 export interface SchemaResponse {
   status: string;
   remoteData?: {
@@ -26,8 +24,6 @@ export const loadSchema = async ({
   url,
   localData,
 }: SchemaRequest): Promise<SchemaResponse> => {
-  // url = '/sch/orlando.rng';
-
   if (virtualEditor.schemaId === id) {
     return { status: 'Schema already loaded' };
   }

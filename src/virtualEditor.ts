@@ -54,11 +54,6 @@ class VirtualEditor {
 
   setDocument(documentString: string) {
     this.#docXML = safeParse(documentString, window);
-
-    //TODO Must be a better way to do this. Perhaps .resetTo | .resetAt | or event create a new Validator;
-    //@ts-ignore //We need to fort validaotr to update document
-    if (this.#validator) this.#validator.root = this.#docXML;
-
     return this.#docXML;
   }
 
@@ -91,19 +86,6 @@ class VirtualEditor {
 
     return this.#validator;
   }
-
-  restartValidator = () => {
-    if (!this.#validator) throw new Error('Validator is not set');
-    if (this.#validator.getWorkingState().state === WorkingState.WORKING) this.stopValidator();
-
-    //TODO Must be a better way to do this. Perhaps .resetTo | .resetAt | or event create a new Validator;
-    //@ts-ignore //We need to for validator to update document
-    this.#validator.root = this.#docXML;
-    //@ts-ignore
-    this.#validator.restartAt();
-
-    return this.#validator;
-  };
 
   stopValidator() {
     if (!this.#validator) throw new Error('Validator is not set');
