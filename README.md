@@ -25,7 +25,7 @@ Not everything works perfectly when running jsdom inside a web browser. Sometime
 
 ### How To use JSDOM on CWRC-WRITER Web Worker
 
-A browserified and fixed verion of jsdom (v. 16.5.0) is aleready in place on the webworkers folder `/src/webworkers/lib/jsdom`
+A browserified and fixed verion of jsdom (v. 16.6.0) is aleready in place on the webworkers folder `/src/webworkers/lib/jsdom`
 
 If the file needs to be updated or regenerated, follow these steps:
 
@@ -39,5 +39,14 @@ If the file needs to be updated or regenerated, follow these steps:
 AsyncIteratorPrototype is throwing an error when running on workers. Since we don't use this method, we just return it as an empty objects.
 
 - Open /src/webworkers/lib/jsdom/jsdon-browserified.js`
-- locate th line where AsyncIteratorPrototype is defined.
-- replace the line with: `const AsyncIteratorPrototype = {}; //Object.getPrototypeOf(Object.getPrototypeOf(async function* () {}).prototype);`
+- locate the line where AsyncIteratorPrototype is defined.
+- replace this line: `const AsyncIteratorPrototype = Object.getPrototypeOf(Object.getPrototypeOf(async function* () {}).prototype);`
+- for this one: `const AsyncIteratorPrototype = {};`
+
+4. fix *SharedArrayBuffer*
+SharedArrayBuffer is throwing an error when running on workers. Since we don't use this method, we just return it as an empty objects.
+
+- Open /src/webworkers/lib/jsdom/jsdon-browserified.js`
+- locate the line where sabByteLengthGetter is defined.
+- eplace this line: `const sabByteLengthGetter = Object.getOwnPropertyDescriptor(SharedArrayBuffer.prototype, "byteLength").get;`
+- for this one: `const sabByteLengthGetter = {};
