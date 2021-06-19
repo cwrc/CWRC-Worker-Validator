@@ -20,7 +20,7 @@
     "url": "https://github.com/cwrc/CWRC-Worker-Validator.git"
   },
   "main": "src/index.worker.ts",
-  "files": ["src"],
+  "files": ["src","build"],
   "scripts": {
     "cm": "git-cz",
     "browserify-jsdom": "browserify -r jsdom -s jsdom -o src/lib/jsdom/jsdom-browserified.js",
