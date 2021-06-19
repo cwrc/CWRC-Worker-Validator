@@ -20,6 +20,7 @@
     "url": "https://github.com/cwrc/CWRC-Worker-Validator.git"
   },
   "main": "src/index.worker.ts",
+  "files": ["src"],
   "scripts": {
     "cm": "git-cz",
     "browserify-jsdom": "browserify -r jsdom -s jsdom -o src/lib/jsdom/jsdom-browserified.js",
@@ -49,7 +50,7 @@
     "clean-webpack-plugin": "^4.0.0-alpha.0",
     "codecov": "^3.8.2",
     "commitizen": "^4.2.4",
-    "eslint": "^7.28.0",
+    "eslint": "^7.29.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^3.4.0",
     "git-cz": "^4.7.6",
@@ -59,8 +60,8 @@
     "semantic-release": "^17.4.4",
     "terser-webpack-plugin": "^5.1.3",
     "ts-loader": "^9.2.3",
-    "typescript": "^4.3.2",
-    "webpack": "^5.39.0",
+    "typescript": "^4.3.4",
+    "webpack": "^5.39.1",
     "webpack-bundle-analyzer": "^4.4.2",
     "webpack-cli": "^4.7.2",
     "webpack-merge": "^5.8.0",
