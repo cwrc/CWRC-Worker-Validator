@@ -19,7 +19,7 @@
     "type": "git",
     "url": "https://github.com/cwrc/CWRC-Worker-Validator.git"
   },
-  "main": "src/index.js",
+  "main": "src/index.worker.ts",
   "scripts": {
     "cm": "git-cz",
     "browserify-jsdom": "browserify -r jsdom -s jsdom -o src/lib/jsdom/jsdom-browserified.js",
@@ -28,12 +28,11 @@
     "copy-package": "copyfiles package.json build/dist"
   },
   "dependencies": {
+    "comlink": "^4.3.1",
     "copyfiles": "^2.4.1",
     "lodash": "^4.17.21",
-    "observable-fns": "^0.6.1",
     "salve-annos": "github:cwrc/salve#develop",
     "salve-dom": "github:cwrc/salve-dom",
-    "threads": "^1.6.5",
     "uuid": "^8.3.2"
   },
   "devDependencies": {

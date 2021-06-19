@@ -1,4 +1,3 @@
-import Observable from 'observable-fns/observable';
 import { WorkingState } from 'salve-dom/build/dist';
 import { Tag } from './sharedTypes';
 export interface ValidationNodeTarget {
@@ -40,5 +39,5 @@ export interface ValidatePossibleAtResponse {
     possibleTags?: Tag[];
     possibleNodes?: PossibleNodes[];
 }
-export declare const validate: (documentString: string) => Observable<any>;
+export declare const validate: (documentString: string, callback: any) => void;
 export declare const validatePossibleAt: (xpath: string, index: number, type: string) => Promise<ValidatePossibleAtResponse>;

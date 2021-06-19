@@ -5,7 +5,7 @@ const WebpackBar = require('webpackbar');
 module.exports = {
   mode: 'none',
   entry: {
-    'cwrc.worker': path.resolve(__dirname, 'src', 'index.ts'),
+    'cwrc.worker': path.resolve(__dirname, 'src', 'index.worker.ts'),
   },
   output: {
     filename: '[name].js',
@@ -21,9 +21,6 @@ module.exports = {
   plugins: [
     new CleanWebpackPlugin({ cleanStaleWebpackAssets: false }),
     new WebpackBar({ color: '#0099ff' }),
-    // new webpack.ProvidePlugin({
-    //   process: 'process/browser',
-    // }),
   ],
   module: {
     rules: [

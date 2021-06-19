@@ -1,6 +1,5 @@
 import sortBy from 'lodash/sortBy';
 import uniqBy from 'lodash/unionBy';
-import Observable, { SubscriptionObserver } from 'observable-fns/observable';
 import { EventSet } from 'salve-annos/build/dist';
 import { AttributeValueEvent, EndTagEvent, TextEvent } from 'salve-annos/build/dist/salve/events';
 import { ErrorData, WorkingState, WorkingStateData } from 'salve-dom/build/dist';
@@ -53,8 +52,6 @@ export interface ValidatePossibleAtResponse {
   possibleNodes?: PossibleNodes[];
 }
 
-let observable: Observable<any>;
-
 const SKIP_EVENTS = new Set(['leaveStartTag']);
 
 const ERROR_TYPES: Map<string, string> = new Map();
@@ -69,37 +66,28 @@ ERROR_TYPES.set('tag not allowed here', 'ElementNameError');
 ERROR_TYPES.set('one value required from the following', 'ChoiceError'); //this might not work
 ERROR_TYPES.set('text not allowed here', 'ValidationError');
 
-export const validate = (documentString: string) => {
+export const validate = (documentString: string, callback: any) => {
   console.time('Validate Document');
 
   virtualEditor.setDocument(documentString);
   const validator = virtualEditor.setValidator();
 
-  observable = new Observable((observer) => {
-    validator.events.addEventListener('error', () => {
-      //TODO Informe progress to the UI
-    });
+  validator.events.addEventListener('error', () => {
+    //TODO Informe progress to the UI
+  });
 
-    validator.events.addEventListener('state-update', (event) =>
-      handleValidatorStateUpdate(event, observer)
-    );
+  validator.events.addEventListener('state-update', (event) => {
+    const state = handleValidatorStateUpdate(event);
+    callback(state);
   });
 
   validator.start();
-
-  return observable;
 };
 
-const handleValidatorStateUpdate = (
-  { partDone, state }: WorkingStateData,
-  observer: SubscriptionObserver<any>
-) => {
+const handleValidatorStateUpdate = ({ partDone, state }: WorkingStateData) => {
   //* state [1] INCOMPLETE: Doesn't happens here because validator runs without timeout
   //* State [2] WORKING: Keep updating the main thread;
-  if (state === 2) {
-    observer.next({ state, partDone });
-    return;
-  }
+  if (state === 2) return { state, partDone };
 
   if (!virtualEditor.validator) throw new Error('virtualEditor: Validator not set');
   const valid = virtualEditor.validator.errors.length > 0 ? false : true;
@@ -107,8 +95,7 @@ const handleValidatorStateUpdate = (
   //* State [4] VALID: Resolve
   if (state === 4) {
     console.timeEnd('Validate Document');
-    observer.next({ valid });
-    return;
+    return { valid };
   }
 
   //* State [3] INVALID: Process errors and Resolve
@@ -117,7 +104,7 @@ const handleValidatorStateUpdate = (
   );
 
   console.timeEnd('Validate Document');
-  observer.next({ valid, errors });
+  return { valid, errors };
 };
 
 const parseErrors = ({ error, index, node }: ErrorData): ValidationNode => {

@@ -1,5 +1,5 @@
-import { Validator } from 'salve-dom/build/dist';
 import { Grammar } from 'salve-annos/build/dist';
+import { Validator } from 'salve-dom/build/dist';
 declare class VirtualEditor {
     #private;
     constructor();

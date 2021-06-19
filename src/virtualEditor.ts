@@ -1,6 +1,6 @@
-import { v4 as uuidv4 } from 'uuid';
-import { safeParse, Validator, WorkingState } from 'salve-dom/build/dist';
 import { Grammar, GrammarWalker, NameResolver } from 'salve-annos/build/dist';
+import { safeParse, Validator } from 'salve-dom/build/dist';
+import { v4 as uuidv4 } from 'uuid';
 
 class VirtualEditor {
   #id: string;
