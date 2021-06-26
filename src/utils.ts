@@ -79,8 +79,8 @@ export const getXPathForElement = (el: any, xml: Document) => {
  * @param {String} documentation The documentation string
  * @returns {String} The full name
  */
-export const getFullNameFromDocumentation = (documentation: string): string => {
+export const getFullNameFromDocumentation = (documentation: string): string | undefined => {
   const hit = /^\((.*?)\)/.exec(documentation);
-  if (hit === null) return '';
+  if (hit === null) return;
   return hit[1];
 };
