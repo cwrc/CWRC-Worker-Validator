@@ -86,14 +86,11 @@ const storePossibleTags = (possibleAt: EventSet) => {
   Array.from(possibleAt).forEach((event) => {
     if (skipEvent.has(event.name)) return;
 
-    const {
-      //@ts-ignore
-      namePattern: { name, documentation },
-    } = event;
-
-    const fullName = getFullNameFromDocumentation(documentation) ?? undefined;
-
-    possibleTags.push({ name, fullName });
+    if ('namePattern' in event && 'name' in event.namePattern) {
+      const { name, ns, documentation } = event.namePattern;
+      const fullName = documentation ? getFullNameFromDocumentation(documentation) : undefined;
+      possibleTags.push({ name, fullName });
+    }
   });
 
   possibleTags = uniqBy(possibleTags, 'name');
