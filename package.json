@@ -20,13 +20,14 @@
     "url": "https://github.com/cwrc/CWRC-Worker-Validator.git"
   },
   "main": "src/index.worker.ts",
-  "files": ["src","build"],
+  "files": [
+    "src",
+    "build"
+  ],
   "scripts": {
-    "cm": "git-cz",
+    "build": "webpack",
     "browserify-jsdom": "browserify -r jsdom -s jsdom -o src/lib/jsdom/jsdom-browserified.js",
-    "build": "webpack --config webpack.prod.mjs",
-    "build-dev": "webpack --config webpack.dev.mjs --watch && npm run copy-package",
-    "copy-package": "copyfiles package.json build/dist"
+    "cm": "git-cz"
   },
   "dependencies": {
     "comlink": "^4.3.1",
