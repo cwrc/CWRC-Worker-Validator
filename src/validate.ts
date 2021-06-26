@@ -35,7 +35,7 @@ export interface ValidationNode {
 }
 
 export interface ValidationResponse {
-  state?: WorkingState;
+  state: WorkingState;
   partDone?: number;
   valid?: boolean;
   errors?: ValidationNode[];
@@ -104,7 +104,7 @@ const handleValidatorStateUpdate = ({ partDone, state }: WorkingStateData) => {
   );
 
   console.timeEnd('Validate Document');
-  return { valid, errors };
+  return { state, valid, errors };
 };
 
 const parseErrors = ({ error, index, node }: ErrorData): ValidationNode => {
