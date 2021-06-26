@@ -25,7 +25,7 @@ export interface ValidationNode {
     element?: ValidationNodeElement;
 }
 export interface ValidationResponse {
-    state?: WorkingState;
+    state: WorkingState;
     partDone?: number;
     valid?: boolean;
     errors?: ValidationNode[];

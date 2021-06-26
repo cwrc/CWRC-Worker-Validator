@@ -9,4 +9,4 @@ export declare const getXPathForElement: (el: any, xml: Document) => string;
  * @param {String} documentation The documentation string
  * @returns {String} The full name
  */
-export declare const getFullNameFromDocumentation: (documentation: string) => string;
+export declare const getFullNameFromDocumentation: (documentation: string) => string | undefined;
