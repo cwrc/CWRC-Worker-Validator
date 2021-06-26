@@ -1,7 +1,7 @@
 import sortBy from 'lodash/sortBy';
 import uniqBy from 'lodash/unionBy';
 import { EventSet } from 'salve-annos/build/dist';
-import { AttributeValueEvent, EndTagEvent, TextEvent } from 'salve-annos/build/dist/salve/events';
+import { EndTagEvent, TextEvent } from 'salve-annos/build/dist/salve/events';
 import { ErrorData, WorkingState, WorkingStateData } from 'salve-dom/build/dist';
 import { Tag } from './sharedTypes';
 import { evaluateXPath, getFullNameFromDocumentation, getXPathForElement } from './utils';
@@ -217,22 +217,17 @@ const parsePossibleAt = (possibleAt: EventSet, isAttr: boolean) => {
       return;
     }
 
-    if (event.isAttributeEvent) {
-      const ev: AttributeValueEvent = event as AttributeValueEvent;
-      const name = ev.value as string;
+    if (event.isAttributeEvent && event.name === 'attributeValue') {
+      const name = event.value as string;
       possibleTags.push({ name });
       return;
     }
 
-    //other events
-    const {
-      //@ts-ignore
-      namePattern: { name, ns, documentation },
-    } = event;
-
-    const fullName = getFullNameFromDocumentation(documentation) ?? undefined;
-
-    possibleTags.push({ name, ns, fullName, documentation });
+    if ('namePattern' in event && 'name' in event.namePattern) {
+      const { name, documentation } = event.namePattern;
+      const fullName = documentation ? getFullNameFromDocumentation(documentation) : undefined;
+      possibleTags.push({ name, fullName, documentation });
+    }
   });
 
   //remove duplicates and sort alphabetacally;
