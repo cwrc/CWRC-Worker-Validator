@@ -32,6 +32,8 @@
   "dependencies": {
     "comlink": "^4.3.1",
     "lodash": "^4.17.21",
+    "salve-annos": "github:cwrc/salve#develop",
+    "salve-dom": "github:cwrc/salve-dom",
     "uuid": "^8.3.2"
   },
   "devDependencies": {
@@ -54,8 +56,6 @@
     "husky": "^6.0.0",
     "jsdom": "16.6.0",
     "prettier": "^2.3.2",
-    "salve-annos": "github:cwrc/salve#develop",
-    "salve-dom": "github:cwrc/salve-dom",
     "semantic-release": "^17.4.4",
     "ts-loader": "^9.2.3",
     "typescript": "^4.3.4",
